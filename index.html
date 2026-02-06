@@ -231,6 +231,11 @@
                     hour: '2-digit',
                     minute: '2-digit'
                 });
+
+                let photoHtml = '';
+                if (post.photo) {
+                    photoHtml = `<img src="${post.photo}" alt="Blog photo" class="post-photo">`;
+                }
                 
                 const content = escapeHtml(post.content);
                 const words = content.split(' ');
