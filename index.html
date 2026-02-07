@@ -56,14 +56,39 @@
             z-index: 100;
         }
         
-        .tester-input {
+        /* Input strip - styled like a test strip */
+        .input-strip-container {
+            position: relative;
             width: 100%;
-            padding: 10px;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.9em;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            background: white;
+            height: 70px;
             margin-bottom: 30px;
+            cursor: text;
+        }
+        
+        .input-strip-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .tester-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.85em;
+            text-align: center;
+            padding: 5px 40px 5px 10px;
+            z-index: 1;
+            clip-path: polygon(0 10%, 85% 10%, 100% 50%, 85% 90%, 0 90%);
         }
         
         .tester-input::placeholder {
@@ -73,7 +98,6 @@
         
         .tester-input:focus {
             outline: none;
-            border-color: rgba(0, 0, 0, 0.4);
         }
         
         .card-stack {
@@ -371,12 +395,20 @@
     
     <!-- Tester Strip Column (Desktop only) -->
     <aside class="tester-strip">
-        <input 
-            type="text" 
-            class="tester-input" 
-            id="testerInput"
-            placeholder="capture a moment"
-        >
+        <div class="input-strip-container">
+            <svg class="input-strip-svg" viewBox="0 0 240 70" preserveAspectRatio="none">
+                <path d="M 0,7 L 200,7 L 240,35 L 200,63 L 0,63 Z" 
+                      fill="white" 
+                      stroke="black" 
+                      stroke-width="0.3"/>
+            </svg>
+            <input 
+                type="text" 
+                class="tester-input" 
+                id="testerInput"
+                placeholder="capture a moment"
+            >
+        </div>
         <div class="card-stack" id="cardStack"></div>
     </aside>
     
@@ -636,12 +668,8 @@
         const input = document.getElementById('testerInput');
         const cardStack = document.getElementById('cardStack');
         
-        // Sample submissions (you can start with empty array)
-        let submissions = [
-            'the way rain sounds different on different surfaces',
-            'wanting to text someone whos not in my life anymore',
-            'grocery store lighting at 9pm hits different'
-        ];
+        // Start with empty submissions - ready for user input
+        let submissions = [];
         
         function stripPunctuation(text) {
             return text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()'"?]/g, '');
@@ -664,7 +692,9 @@
         
         function renderCards() {
             cardStack.innerHTML = '';
-            submissions.forEach(text => {
+            // Only show top 10 cards visually
+            const visibleSubmissions = submissions.slice(0, 10);
+            visibleSubmissions.forEach(text => {
                 cardStack.appendChild(createCard(text));
             });
         }
