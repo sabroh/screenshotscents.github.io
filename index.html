@@ -453,6 +453,42 @@
                 }, 800);
             });
 
+        // About button functionality
+                const aboutLink = document.getElementById('aboutLink');
+                let aboutClicked = false;
+                
+                aboutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (aboutClicked) return;
+                    aboutClicked = true;
+                    
+                    // Hide the link
+                    aboutLink.classList.add('hidden');
+                    
+                    // Create the about text element
+                    const aboutText = document.createElement('div');
+                    aboutText.className = 'about-text typing';
+                    aboutText.textContent = 'sabrina is a blogger who stops and reads the nail polish names';
+                    document.body.appendChild(aboutText);
+                    
+                    // Remove cursor after typing animation
+                    setTimeout(() => {
+                        aboutText.style.borderRight = 'none';
+                    }, 3000);
+                    
+                    // Start misting out after 2 seconds pause
+                    setTimeout(() => {
+                        aboutText.classList.remove('typing');
+                        aboutText.classList.add('misting');
+                        
+                        // Remove element after mist animation
+                        setTimeout(() => {
+                            aboutText.remove();
+                        }, 2000);
+                    }, 5000);
+                });
+        
     </script>
 </body>
 </html>
