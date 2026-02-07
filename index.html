@@ -349,10 +349,8 @@
         }
         
         .typing {
-            overflow: hidden;
+            overflow: visible;
             white-space: nowrap;
-            border-right: 2px solid black;
-            animation: typing 5s steps(60, end);
         }
         
         @keyframes typing {
@@ -650,17 +648,32 @@
             
             const aboutText = document.createElement('div');
             aboutText.className = 'about-text typing';
-            aboutText.textContent = 'sabrina is a blogger who stops and reads nail polish names';
+            aboutText.style.borderRight = '2px solid black';
             document.body.appendChild(aboutText);
             
-            setTimeout(() => {
-                aboutText.classList.remove('typing');
-                aboutText.classList.add('misting');
-                
-                setTimeout(() => {
-                    aboutText.remove();
-                }, 4000);
-            }, 4500);
+            const fullText = 'sabrina is a blogger who stops and reads nail polish names';
+            let charIndex = 0;
+            
+            // Type character by character
+            const typeInterval = setInterval(() => {
+                if (charIndex < fullText.length) {
+                    aboutText.textContent = fullText.substring(0, charIndex + 1);
+                    charIndex++;
+                } else {
+                    clearInterval(typeInterval);
+                    // Remove cursor and start misting
+                    aboutText.style.borderRight = 'none';
+                    
+                    setTimeout(() => {
+                        aboutText.classList.remove('typing');
+                        aboutText.classList.add('misting');
+                        
+                        setTimeout(() => {
+                            aboutText.remove();
+                        }, 4000);
+                    }, 500);
+                }
+            }, 80); // 80ms per character = ~5 seconds total
         });
         
         // TESTER STRIP FUNCTIONALITY
