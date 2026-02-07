@@ -474,11 +474,6 @@
                     aboutText.textContent = 'sabrina is a blogger who stops and reads nail polish names';
                     document.body.appendChild(aboutText);
                     
-                    // Remove cursor after typing animation
-                    setTimeout(() => {
-                        aboutText.style.borderRight = 'none';
-                    }, 5000);
-                    
                     // Start misting out immediately (no pause)
                     setTimeout(() => {
                         aboutText.classList.remove('typing');
