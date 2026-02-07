@@ -139,11 +139,75 @@
                 opacity: 1;
             }
         }
+
+.about-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9em;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .about-link:hover {
+            color: #000;
+        }
+        
+        .about-link.hidden {
+            display: none;
+        }
+        
+        .about-text {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            color: black;
+            z-index: 1000;
+            max-width: 400px;
+            text-align: right;
+        }
+        
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid black;
+            animation: typing 3s steps(60, end);
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .misting {
+            animation: mistOut 2s ease-out forwards;
+        }
+        
+        @keyframes mistOut {
+            0% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+            50% {
+                opacity: 0.5;
+                filter: blur(1px);
+            }
+            100% {
+                opacity: 0;
+                filter: blur(3px);
+            }
+        }
         
     </style>
 </head>
 <body>
     <div id="custom-cursor"></div>
+    <a href="#" class="about-link" id="aboutLink">about</a>
     <header>
         <h1>screenshot scents</h1>
         <div id="datetime"></div>
@@ -387,7 +451,7 @@
                     trailDot.remove();
                 }, 800);
             });
-        
+
     </script>
 </body>
 </html>
